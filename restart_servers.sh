@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SERVERS=/root/v2ray/servers
+SERVERS=/root/v2ray/list
 SERVICE=v2ray@bridge
 
 for server in $(cat "$SERVERS") ; do
