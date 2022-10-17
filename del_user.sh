@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-file_config=/etc/v2ray/bridge.json
-file_newconfig=/root/v2ray/bridge.json_new
-file_deleted=/root/v2ray/deleted_pending
+file_config=/usr/local/etc/v2ray/config.json
+file_newconfig=/usr/local/etc/v2ray/config.json_new
+file_deleted=/usr/local/etc/v2ray/deleted_pending
 v2ray=v2ray
 uuid_new="$($v2ray uuid)"
 email="$(grep -F "$1" "$file_config" | tr -d ' ,"' | sed 's/^email://')"
