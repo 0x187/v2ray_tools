@@ -8,10 +8,11 @@ WAIT=3
 while true ; do
 	for server in $(cat $SERVERS) ; do
 		if [[ $server == this ]] ; then
-			echo "" > $LOG_DIR/access.log
+			echo -n '' > $LOG_DIR/access.log
 			continue
 		fi
-		ssh root@$server "echo > $LOG_DIR/access.log"
+		ssh root@$server "echo -n '' > $LOG_DIR/access.log"
+
 	done
 	i=0
 	while [ $i -lt $WAIT ] ; do
@@ -27,5 +28,6 @@ while true ; do
 		cat $LOG_DIR/srv${server##*.}/access.log >> $DEST
 	done
 	/root/v2ray/check_client.sh $DEST
+	echo '--------------------------'
 	rm -f $DEST
 done
