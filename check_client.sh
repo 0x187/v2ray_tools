@@ -1,22 +1,31 @@
-#!/usr/bin/env bash
+#/usr/bin/bash
 
-file_config=/etc/v2ray/bridge.json
-file_log="$1"
-file_strikes=/root/v2ray/strikes
+SERVERS=/root/v2ray/list
+LOG_DIR=/var/log/v2ray
+DEST=$(mktemp)
+WAIT=3
 
-cat "$file_config" | \
-	sed 's/^ *\/\/.*//' | \
-	jq -r '.inbounds | map(select(.protocol=="vmess"))[].settings.clients[] | .email' | \
-	while read email ; do
-		cur_conn="$(grep -wF "email: $email" "$file_log" | cut -d' ' -f3 | cut -d':' -f1 | sort | uniq | wc -l)"
-		max_conn="${email%@*}"
-		if ! [[ "$max_conn" =~ ^[0-9]+$ ]] ; then
-			echo "${email} ${cur_conn}"
+while true ; do
+	for server in $(cat $SERVERS) ; do
+		if [[ $server == this ]] ; then
+			echo "" > $LOG_DIR/access.log
 			continue
 		fi
-		if [[ "$cur_conn" > $max_conn ]] ; then
-			echo "${email#*@} ${cur_conn}/${max_conn}"
-			echo "$email" >> "$file_strikes"
-		fi
+		ssh root@$server "echo > $LOG_DIR/access.log"
 	done
-
+	i=0
+	while [ $i -lt $WAIT ] ; do
+		sleep 1
+		echo -ne "${i}/${WAIT}\r"
+		i=$(($i+1))
+	done
+	for server in $(cat $SERVERS) ; do
+		if [[ $server == this ]] ; then
+			cat $LOG_DIR/access.log >> $DEST		
+			continue
+		fi
+		cat $LOG_DIR/srv${server##*.}/access.log >> $DEST
+	done
+	/root/v2ray/check_client.sh $DEST
+	rm -f $DEST
+done
