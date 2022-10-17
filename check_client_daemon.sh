@@ -1,9 +1,9 @@
-#/usr/bin/env bash
+#/usr/bin/bash
 
-SERVERS=/root/v2ray/servers
+SERVERS=/root/v2ray/list
 LOG_DIR=/var/log/v2ray
 DEST=$(mktemp)
-WAIT=120
+WAIT=3
 
 while true ; do
 	for server in $(cat $SERVERS) ; do
