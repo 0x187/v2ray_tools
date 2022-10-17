@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-file_config=/etc/v2ray/bridge.json
-file_newconfig=/root/v2ray/bridge.json_new
-file_oldconfig=/root/v2ray/bridge.json_old
-file_deleted=/root/v2ray/deleted
+file_config=/usr/local/etc/v2ray/config.json
+file_newconfig=/usr/local/etc/v2ray/config.json_new
+file_oldconfig=/usr/local/etc/v2ray/config.json_old
+file_deleted=/usr/local/etc/v2ray/deleted
 
 cp "$file_config" "$file_oldconfig"
 cp "$file_newconfig" "$file_config"
