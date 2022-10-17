@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-file_config=/etc/v2ray/bridge.json
-file_newconfig=/root/v2ray/bridge.json_new
+file_config=/usr/local/etc/v2ray/config.json
+file_newconfig=/usr/local/etc/v2ray/config.json_new
 v2ray=v2ray
 uuid="$($v2ray uuid)"
 
