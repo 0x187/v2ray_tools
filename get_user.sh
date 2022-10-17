@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-file_config=/etc/v2ray/bridge.json
+file_config=/usr/local/etc/v2ray/config.json
 addr=${2}
 c_port="$(cat "$file_config" | jq -r '.inbounds[] | select(.protocol=="vmess").port')"
 c_host="$(cat "$file_config" | jq -r '.inbounds[] | select(.protocol=="vmess").streamSettings.headers.Host')"
