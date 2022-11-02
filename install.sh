@@ -24,10 +24,9 @@ main() {
   check_if_running_as_root
   apt update
   apt install git
-  makdir -p /root/v2ray/install
+  mkdir -p /root/v2ray/install
   download_files
   bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
-
   "$@"
 }
 
