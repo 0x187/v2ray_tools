@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 check_if_running_as_root() {
   # If you want to run as another user, please modify $UID to be owned by this user
   if [[ "$UID" -ne '0' ]]; then
@@ -14,11 +13,10 @@ check_if_running_as_root() {
     fi
   fi
 }
+
 download_files() {
     git clone https://github.com/0x187/v2ray_tools.git /root/v2ray/
 }
-
-
 
 main() {
   check_if_running_as_root
